@@ -578,15 +578,15 @@ footer {
 
     <div class="summary-strip reveal">
       <div class="summary-cell">
-        <div class="summary-val"><em>23</em></div>
+        <div class="summary-val"><em>26</em></div>
         <div class="summary-lbl">Экранов в MVP</div>
       </div>
       <div class="summary-cell">
-        <div class="summary-val"><em>5</em></div>
+        <div class="summary-val"><em>6</em></div>
         <div class="summary-lbl">Функциональные зоны</div>
       </div>
       <div class="summary-cell">
-        <div class="summary-val"><em>3</em></div>
+        <div class="summary-val"><em>4</em></div>
         <div class="summary-lbl">Роли в команде</div>
       </div>
       <div class="summary-cell">
@@ -932,10 +932,74 @@ footer {
       </div>
     </div>
 
-    <!-- ═══════════ ZONE 3B — ADMIN ═══════════ -->
+    <!-- ═══════════ ZONE 3.5 — KNOWLEDGE BASE ═══════════ -->
     <div class="zone">
       <div class="zone-header">
         <div class="zone-num app">04</div>
+        <div>
+          <div class="zone-title">База знаний</div>
+          <div class="zone-sub">Хранилище исходных документов · переиспользование между курсами · отслеживание актуальности</div>
+        </div>
+      </div>
+
+      <div class="pages-grid cols-3">
+        <div class="page-card app">
+          <div class="page-id">KB-01</div>
+          <div class="page-title">Список документов</div>
+          <span class="page-route">/knowledge</span>
+          <div class="page-desc">Все исходные документы workspace. Карточки с тегами, статусом, количеством курсов на основе.</div>
+          <ul class="page-feats">
+            <li>4 stat-tile: всего · актуальные · устаревшие · использовано курсов</li>
+            <li>Поиск по содержимому, фильтры по тегу и статусу</li>
+            <li>Кнопка «Добавить документ» (модалка)</li>
+            <li>Статусы: active · outdated · archived</li>
+          </ul>
+        </div>
+
+        <div class="page-card app">
+          <div class="page-id">KB-02</div>
+          <div class="page-title">Детальная страница</div>
+          <span class="page-route">/knowledge/:id</span>
+          <div class="page-desc">Карточка документа: метаданные, превью текста, теги, список курсов «на основе этого создано». Кнопки заменить / архивировать.</div>
+          <ul class="page-feats">
+            <li>Метаданные: размер, страницы, язык, автор</li>
+            <li>Превью первых ~500 символов извлечённого текста</li>
+            <li>Список связанных курсов</li>
+            <li>Бейдж + кнопка «Перегенерировать все» если документ обновился</li>
+          </ul>
+        </div>
+
+        <div class="page-card app">
+          <div class="page-id">KB-03</div>
+          <div class="page-title">Добавить документ</div>
+          <span class="page-route">модалка из KB-01</span>
+          <div class="page-desc">Drag-drop загрузка + название, описание, теги. Подсказки тегов из существующих.</div>
+          <ul class="page-feats">
+            <li>2 шага: загрузка → метаданные</li>
+            <li>Tag chips с автодополнением</li>
+            <li>Подсказки популярных тегов</li>
+            <li>Запись в журнал действий</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="background:var(--accent-lt);border:1px solid var(--accent-md);border-radius:12px;padding:18px 22px;margin-top:20px;display:flex;gap:14px;align-items:flex-start">
+        <div style="font-size:20px">🔗</div>
+        <div style="flex:1">
+          <div style="font-family:'Playfair Display',serif;font-weight:700;color:var(--ink);margin-bottom:4px">Связь с другими зонами</div>
+          <div style="font-size:13px;color:var(--muted);line-height:1.5">
+            <b style="color:var(--text)">Wizard step 1</b> — теперь два таба: «Из библиотеки знаний» (выбор существующего) или «Загрузить новый» (документ автоматически попадает в КБ).<br>
+            <b style="color:var(--text)">Editor</b> — показывает chip «Источник: filename.pdf» под заголовком + амбер-предупреждение если документ обновлён.<br>
+            <b style="color:var(--text)">Dashboard / Library</b> — бейдж «⚠ устарел» на карточках курсов, чей исходник имеет новую версию.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════ ZONE 3B — ADMIN ═══════════ -->
+    <div class="zone">
+      <div class="zone-header">
+        <div class="zone-num app">05</div>
         <div>
           <div class="zone-title">Администрирование Workspace</div>
           <div class="zone-sub">Доступно только Owner/Admin · Author видит только курсы и библиотеку</div>
@@ -1014,10 +1078,10 @@ footer {
       </div>
     </div>
 
-    <!-- ═══════════ ZONE 5 — SYSTEM STATES ═══════════ -->
+    <!-- ═══════════ ZONE 6 — SYSTEM STATES ═══════════ -->
     <div class="zone">
       <div class="zone-header">
-        <div class="zone-num system">05</div>
+        <div class="zone-num system">06</div>
         <div>
           <div class="zone-title">Системные состояния</div>
           <div class="zone-sub">Универсальные паттерны — встречаются на нескольких экранах</div>
@@ -1081,7 +1145,7 @@ footer {
     <!-- ═══════════ ROLES & PERSONAS ═══════════ -->
     <div class="zone">
       <div class="zone-header">
-        <div class="zone-num app">06</div>
+        <div class="zone-num app">07</div>
         <div>
           <div class="zone-title">Роли пользователей в MVP</div>
           <div class="zone-sub">В MVP — одна активная роль · мульти-роли запланированы в v1.0</div>
@@ -1130,7 +1194,7 @@ footer {
     <!-- ═══════════ TECHNICAL MAP ═══════════ -->
     <div class="zone">
       <div class="zone-header">
-        <div class="zone-num system">07</div>
+        <div class="zone-num system">08</div>
         <div>
           <div class="zone-title">Что НЕ входит в MVP</div>
           <div class="zone-sub">Запланировано в roadmap · важно для понимания границ системы</div>

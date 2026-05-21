@@ -1507,6 +1507,282 @@ input[type=range]::-webkit-slider-thumb {
   margin-left: 6px;
 }
 
+/* ═══════════ KNOWLEDGE BASE ═══════════ */
+.doc-type {
+  width: 38px; height: 46px;
+  border-radius: 4px;
+  display: flex; align-items: flex-end; justify-content: center;
+  font-size: 10px; font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  padding-bottom: 5px;
+  position: relative;
+}
+.doc-type::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0;
+  width: 10px; height: 10px;
+  background: rgba(255,255,255,0.3);
+  clip-path: polygon(0 0, 100% 100%, 0 100%);
+}
+.doc-type.pdf  { background: #DC2626; }
+.doc-type.docx { background: #2952B8; }
+.doc-type.pptx { background: #E55B00; }
+.doc-type.txt  { background: #6B6760; }
+
+.docs-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 18px;
+}
+.doc-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+  display: flex; flex-direction: column;
+  gap: 12px;
+  min-height: 210px;
+  position: relative;
+}
+.doc-card:hover { border-color: var(--accent-md); transform: translateY(-3px); box-shadow: 0 8px 24px rgba(26,24,20,0.06); }
+
+.doc-card.archived { opacity: 0.6; background: var(--surface); }
+.doc-card.outdated {
+  border-color: #F3D8B5;
+  background: linear-gradient(to bottom, var(--amber-lt), var(--white) 40%);
+}
+
+.doc-card-head { display: flex; gap: 14px; align-items: flex-start; }
+.doc-card-info { flex: 1; min-width: 0; }
+.doc-card-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 17px; font-weight: 700;
+  color: var(--ink);
+  line-height: 1.25;
+  margin-bottom: 4px;
+}
+.doc-card-filename {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--muted2);
+  word-break: break-all;
+}
+.doc-card-desc {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.doc-card-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.doc-tag {
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 10px; font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+.doc-tag.outdated { background: var(--amber-lt); color: var(--amber); }
+.doc-tag.archived { background: var(--surface2); color: var(--muted); }
+
+.doc-card-meta {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border);
+  font-size: 11.5px;
+  color: var(--muted);
+  display: flex; justify-content: space-between;
+  align-items: center;
+}
+.doc-card-meta b { color: var(--text); font-weight: 600; }
+
+.doc-card-courses {
+  display: inline-flex; align-items: center; gap: 4px;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* document detail */
+.doc-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 22px;
+}
+.doc-detail-main {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 28px;
+}
+.doc-detail-side {
+  display: flex; flex-direction: column;
+  gap: 14px;
+}
+.doc-side-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+}
+.doc-side-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 14px; font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 12px;
+}
+
+.kv-list { display: flex; flex-direction: column; gap: 10px; }
+.kv {
+  display: flex; flex-direction: column; gap: 2px;
+  font-size: 12.5px;
+}
+.kv .k { color: var(--muted2); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+.kv .v { color: var(--text); font-weight: 500; }
+
+.content-preview {
+  background: var(--surface);
+  border-radius: 10px;
+  padding: 22px 26px;
+  font-size: 13.5px;
+  line-height: 1.75;
+  color: var(--text);
+  max-height: 380px;
+  overflow-y: auto;
+  font-family: 'Georgia', 'Playfair Display', serif;
+  white-space: pre-wrap;
+}
+
+.used-list { display: flex; flex-direction: column; gap: 8px; }
+.used-row {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px;
+  background: var(--surface);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.15s;
+  font-size: 13px;
+}
+.used-row:hover { background: var(--accent-lt); }
+.used-row .used-name { font-weight: 600; color: var(--text); flex: 1; line-height: 1.3; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.used-row .used-status { font-size: 10px; }
+
+/* source chip in editor */
+.src-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 11.5px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.src-chip svg { width: 12px; height: 12px; flex-shrink: 0; }
+.src-chip.outdated {
+  background: var(--amber-lt);
+  border-color: #F3D8B5;
+  color: var(--amber);
+  font-weight: 600;
+}
+.src-chip a { color: inherit; text-decoration: underline; text-decoration-style: dotted; }
+
+/* outdated mini badge */
+.outdated-pin {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--amber-lt);
+  color: var(--amber);
+  font-size: 9.5px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* tag chip input */
+.tag-chips {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  padding: 6px;
+  background: var(--surface);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  min-height: 42px;
+  align-items: center;
+}
+.tag-chip {
+  display: inline-flex; align-items: center; gap: 4px;
+  background: var(--accent-lt);
+  color: var(--accent);
+  font-size: 11px; font-weight: 600;
+  padding: 3px 8px; border-radius: 4px;
+  cursor: default;
+  letter-spacing: 0.04em;
+}
+.tag-chip .x { cursor: pointer; opacity: 0.6; }
+.tag-chip .x:hover { opacity: 1; }
+.tag-chip-input {
+  background: transparent; border: none; outline: none;
+  flex: 1; min-width: 100px;
+  font-size: 13px; padding: 4px;
+  color: var(--text);
+}
+.tag-suggested-row {
+  display: flex; flex-wrap: wrap; gap: 5px;
+  margin-top: 8px;
+}
+.tag-suggested {
+  background: var(--white);
+  border: 1px solid var(--border);
+  font-size: 10.5px;
+  padding: 3px 8px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  transition: all 0.15s;
+}
+.tag-suggested:hover {
+  background: var(--accent-lt);
+  color: var(--accent);
+  border-color: var(--accent-md);
+}
+
+/* wizard source picker */
+.kb-doc-row {
+  display: flex; align-items: center; gap: 12px;
+  padding: 12px 14px;
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 8px;
+}
+.kb-doc-row:hover { border-color: var(--accent-md); background: var(--accent-lt); }
+.kb-doc-row.selected { border-color: var(--accent); background: var(--accent-lt); }
+.kb-doc-row .doc-type { width: 30px; height: 36px; font-size: 8px; padding-bottom: 3px; }
+.kb-doc-row .info { flex: 1; min-width: 0; }
+.kb-doc-row .name {
+  font-weight: 600;
+  color: var(--text);
+  font-size: 13.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.kb-doc-row .meta { font-size: 11px; color: var(--muted2); margin-top: 2px; }
+.kb-doc-row .check { color: var(--accent); opacity: 0; }
+.kb-doc-row.selected .check { opacity: 1; }
+
 /* ═══════════ PRESETS (wizard) ═══════════ */
 .preset-row {
   display: flex; gap: 8px; flex-wrap: wrap;
@@ -1728,10 +2004,142 @@ const SAMPLE_COURSE = {
   passScore: 70
 };
 
+const SEED_DOCUMENTS = [
+  {
+    id: 'doc1',
+    title: 'Регламент по охране труда 2026',
+    filename: 'reglament_OT_2026.pdf',
+    type: 'pdf',
+    description: 'Основной регламент компании по охране труда. Требования к рабочим местам, обязанности сторон, порядок инструктажей и расследования несчастных случаев.',
+    tags: ['Охрана труда', 'Промбезопасность', 'Обязательно'],
+    fileSize: '2.4 МБ',
+    pageCount: 28,
+    language: 'ru',
+    uploadedById: 't1',
+    uploadedAt: '2025-11-10T10:00:00Z',
+    updatedAt: '2026-04-12T14:00:00Z',
+    status: 'active',
+    contentPreview: '1. ОБЩИЕ ПОЛОЖЕНИЯ\n\n1.1. Настоящий регламент устанавливает требования к охране труда работников Компании на производственных площадках, в офисах и на иных объектах.\n\n1.2. Действие регламента распространяется на всех работников Компании независимо от занимаемой должности, а также на подрядчиков, выполняющих работы на территории Компании.\n\n2. ОБЯЗАННОСТИ РАБОТОДАТЕЛЯ\n\n2.1. Работодатель обязан обеспечить безопасные условия труда в соответствии с требованиями нормативных правовых актов, содержащих государственные нормативные требования охраны труда.\n\n2.2. Обеспечить проведение инструктажей по охране труда, обучения безопасным методам и приёмам выполнения работ.\n\n2.3. Предоставлять работникам средства индивидуальной защиты согласно утверждённым нормам...'
+  },
+  {
+    id: 'doc2',
+    title: 'Антикоррупционная политика v3',
+    filename: 'antikor_policy_v3.docx',
+    type: 'docx',
+    description: 'Принципы предотвращения коррупции, правила поведения сотрудников, процедуры конфликта интересов, порядок взаимодействия с государственными органами.',
+    tags: ['Комплаенс', 'Антикоррупция', 'Юридический'],
+    fileSize: '1.2 МБ',
+    pageCount: 14,
+    language: 'ru',
+    uploadedById: 't2',
+    uploadedAt: '2026-02-15T11:30:00Z',
+    updatedAt: '2026-04-28T09:15:00Z',
+    status: 'active',
+    contentPreview: '1. ОСНОВНЫЕ ПОЛОЖЕНИЯ\n\nКомпания не допускает коррупционных проявлений в любой форме. Все сотрудники обязаны соблюдать принципы добросовестности и прозрачности.\n\n2. ЗАПРЕЩЁННЫЕ ДЕЙСТВИЯ\n\n2.1. Получение и передача неправомерной выгоды.\n2.2. Использование служебного положения для личной выгоды.\n2.3. Конфликт интересов без декларирования.\n\n3. ПОРЯДОК ДЕКЛАРИРОВАНИЯ\n\nКаждый сотрудник обязан декларировать потенциальный конфликт интересов в течение 5 рабочих дней с момента возникновения...'
+  },
+  {
+    id: 'doc3',
+    title: 'Стандарты обслуживания клиентов',
+    filename: 'service_standards_2026.pptx',
+    type: 'pptx',
+    description: 'Правила работы с клиентами: приветствие, ведение диалога, разрешение конфликтных ситуаций, требования к внешнему виду и поведению.',
+    tags: ['HR', 'Сервис', 'Стандарты'],
+    fileSize: '3.8 МБ',
+    pageCount: 32,
+    language: 'ru',
+    uploadedById: 't3',
+    uploadedAt: '2026-03-20T13:00:00Z',
+    updatedAt: '2026-05-08T11:00:00Z',
+    status: 'active',
+    contentPreview: 'СТАНДАРТЫ ОБСЛУЖИВАНИЯ КЛИЕНТОВ\n\nМОДУЛЬ 1. ПРИВЕТСТВИЕ\n— Установите зрительный контакт в течение 5 секунд.\n— Поздоровайтесь чётко и доброжелательно.\n— Используйте имя клиента, если оно известно.\n\nМОДУЛЬ 2. ВЫЯСНЕНИЕ ПОТРЕБНОСТЕЙ\n— Задавайте открытые вопросы.\n— Активное слушание — повторите ключевые моменты.\n— Не прерывайте клиента в середине фразы...'
+  },
+  {
+    id: 'doc4',
+    title: 'Правила пожарной безопасности',
+    filename: 'fire_safety_rules.pdf',
+    type: 'pdf',
+    description: 'Действия персонала при возникновении пожара, эвакуация, первичные средства пожаротушения, ответственность.',
+    tags: ['Охрана труда', 'Промбезопасность'],
+    fileSize: '1.8 МБ',
+    pageCount: 22,
+    language: 'ru',
+    uploadedById: 't1',
+    uploadedAt: '2026-01-22T09:00:00Z',
+    updatedAt: '2026-01-22T09:00:00Z',
+    status: 'active',
+    contentPreview: 'ПРАВИЛА ПОЖАРНОЙ БЕЗОПАСНОСТИ\n\n1. При обнаружении признаков пожара немедленно сообщить по телефону 101 или 112.\n2. Оповестить людей, находящихся в помещении.\n3. Принять меры по эвакуации.\n4. Покинуть опасную зону через эвакуационные выходы.\n5. По возможности применить первичные средства пожаротушения.\n\nЗАПРЕЩЕНО:\n— Курить в неустановленных местах.\n— Использовать неисправное электрооборудование.\n— Загромождать пути эвакуации...'
+  },
+  {
+    id: 'doc5',
+    title: 'Положение об антиотмывочных процедурах (AML)',
+    filename: 'AML_procedures_2026.pdf',
+    type: 'pdf',
+    description: 'Процедуры по противодействию легализации доходов, полученных преступным путём. KYC, мониторинг операций, уведомления.',
+    tags: ['Комплаенс', 'Финансы', 'AML'],
+    fileSize: '3.1 МБ',
+    pageCount: 42,
+    language: 'ru',
+    uploadedById: 't2',
+    uploadedAt: '2026-03-08T15:00:00Z',
+    updatedAt: '2026-03-08T15:00:00Z',
+    status: 'active',
+    contentPreview: '1. ИДЕНТИФИКАЦИЯ КЛИЕНТА (KYC)\n\n1.1. До начала обслуживания клиента необходимо провести его идентификацию: установить личность, проверить документы, оценить риски.\n\n1.2. Уровень due diligence зависит от категории клиента: упрощённая, стандартная, расширенная.\n\n2. МОНИТОРИНГ ОПЕРАЦИЙ\n\n2.1. Операции свыше пороговых значений подлежат особому контролю.\n2.2. Подозрительные операции немедленно эскалируются в комплаенс-отдел...'
+  },
+  {
+    id: 'doc6',
+    title: 'Onboarding-гайд для новых сотрудников',
+    filename: 'onboarding_guide_2026.docx',
+    type: 'docx',
+    description: 'Welcome-материалы для новичков. Структура компании, корпоративная культура, ключевые процессы, первые 30/60/90 дней.',
+    tags: ['HR', 'Onboarding'],
+    fileSize: '1.4 МБ',
+    pageCount: 18,
+    language: 'ru',
+    uploadedById: 't3',
+    uploadedAt: '2026-04-05T10:00:00Z',
+    updatedAt: '2026-04-05T10:00:00Z',
+    status: 'active',
+    contentPreview: 'ДОБРО ПОЖАЛОВАТЬ В КОМПАНИЮ\n\nПервый день\n— Знакомство с командой\n— Получение оборудования и доступов\n— Обзор офиса\n— Ознакомление с инструкциями по охране труда\n\nПервая неделя\n— Введение в продукт и процессы\n— Встречи с ключевыми коллегами\n— План на ispытательный срок\n\nПервый месяц\n— Прохождение обязательных курсов\n— Первые задачи в работе...'
+  },
+  {
+    id: 'doc7',
+    title: 'Политика информационной безопасности',
+    filename: 'info_security_policy_v2.pdf',
+    type: 'pdf',
+    description: 'Требования к работе с конфиденциальной информацией, паролями, удалёнными доступами, использованием личных устройств.',
+    tags: ['ИБ', 'Обязательно'],
+    fileSize: '2.7 МБ',
+    pageCount: 36,
+    language: 'ru',
+    uploadedById: 't1',
+    uploadedAt: '2025-09-15T14:00:00Z',
+    updatedAt: '2026-05-18T11:00:00Z',
+    status: 'outdated',
+    contentPreview: 'ПОЛИТИКА ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ\n\n1. КЛАССИФИКАЦИЯ ИНФОРМАЦИИ\n\n1.1. Открытая — публичная информация.\n1.2. Внутренняя — для сотрудников компании.\n1.3. Конфиденциальная — ограниченный доступ.\n1.4. Секретная — особый порядок обращения.\n\n2. ТРЕБОВАНИЯ К ПАРОЛЯМ\n\n— Минимум 12 символов\n— Заглавные и строчные буквы, цифры, спецсимволы\n— Смена раз в 90 дней\n— Запрет повторного использования последних 5 паролей...'
+  },
+  {
+    id: 'doc8',
+    title: 'Кодекс корпоративной этики (черновик)',
+    filename: 'ethics_code_draft.pdf',
+    type: 'pdf',
+    description: 'Принципы поведения сотрудников, этические дилеммы, порядок сообщения о нарушениях.',
+    tags: ['Этика', 'HR'],
+    fileSize: '0.9 МБ',
+    pageCount: 12,
+    language: 'ru',
+    uploadedById: 't2',
+    uploadedAt: '2025-08-20T10:00:00Z',
+    updatedAt: '2025-08-20T10:00:00Z',
+    status: 'archived',
+    contentPreview: 'КОДЕКС КОРПОРАТИВНОЙ ЭТИКИ (ДРАФТ)\n\nПринципы:\n— Честность и порядочность\n— Уважение к коллегам и клиентам\n— Ответственность за свои действия\n— Защита репутации компании\n\nЭтические дилеммы решаются с участием непосредственного руководителя и при необходимости — этического комитета...'
+  }
+];
+
 const SEED_PROJECTS = [
   {
     id: 'p1',
     title: 'Промышленная безопасность на производстве',
+    sourceDocId: 'doc1',
     sourceFilename: 'reglament_OT_2026.pdf',
     status: 'draft',
     createdAt: '2026-05-12T10:24:00Z',
@@ -1742,6 +2150,7 @@ const SEED_PROJECTS = [
   {
     id: 'p2',
     title: 'Комплаенс и антикоррупционная политика',
+    sourceDocId: 'doc2',
     sourceFilename: 'antikor_policy_v3.docx',
     status: 'exported',
     createdAt: '2026-04-28T09:15:00Z',
@@ -1752,12 +2161,25 @@ const SEED_PROJECTS = [
   {
     id: 'p3',
     title: 'Стандарты обслуживания клиентов',
+    sourceDocId: 'doc3',
     sourceFilename: 'service_standards.pptx',
     status: 'draft',
     createdAt: '2026-05-08T11:00:00Z',
     updatedAt: '2026-05-18T17:30:00Z',
     params: { audience: 'Менеджеры по работе с клиентами', difficulty: 'medium', modulesCount: 3, testQuestionsCount: 10 },
     content: null
+  },
+  {
+    id: 'p4',
+    title: 'Информационная безопасность для офиса',
+    sourceDocId: 'doc7',
+    sourceFilename: 'info_security_policy_v1.pdf',
+    status: 'exported',
+    createdAt: '2025-12-05T09:00:00Z',
+    updatedAt: '2026-01-15T10:00:00Z',
+    params: { audience: 'Все сотрудники компании', difficulty: 'basic', modulesCount: 4, testQuestionsCount: 12 },
+    content: null,
+    sourceOutdated: true
   }
 ];
 
@@ -1838,7 +2260,7 @@ const PLAN_OPTIONS = [
   { id: 'enterprise', name: 'Enterprise', price: null, courses: -1, seats: -1, feats: ['Безлимитные курсы и пользователи', 'On-premise установка', 'Кастомные интеграции', 'SLA · персональный менеджер', 'Брендирование под клиента'] }
 ];
 
-const LS_KEY = 'talaplab_demo_state_v1';
+const LS_KEY = 'talaplab_demo_state_v2';
 
 let state = loadState();
 
@@ -1850,8 +2272,9 @@ function loadState() {
   return {
     auth: false,
     user: null,
-    role: 'owner', // owner | admin | author — toggle через демо-баннер
+    role: 'owner', // owner | admin | author | member
     projects: JSON.parse(JSON.stringify(SEED_PROJECTS)),
+    documents: JSON.parse(JSON.stringify(SEED_DOCUMENTS)),
     workspace: JSON.parse(JSON.stringify(SEED_WORKSPACE)),
     team: JSON.parse(JSON.stringify(SEED_TEAM)),
     integrations: JSON.parse(JSON.stringify(SEED_INTEGRATIONS)),
@@ -1861,7 +2284,13 @@ function loadState() {
   };
 }
 function isAdmin() { return state.role === 'owner' || state.role === 'admin'; }
+function isAuthorOrAbove() { return state.role !== 'member'; }
 function setRole(r) { state.role = r; saveState(); render(); }
+
+function findDoc(id) { return state.documents.find(d => d.id === id); }
+function countCoursesUsingDoc(docId) {
+  return state.projects.filter(p => p.sourceDocId === docId).length;
+}
 function saveState() { localStorage.setItem(LS_KEY, JSON.stringify(state)); }
 function resetDemo() {
   if (!confirm('Сбросить все демо-данные?')) return;
@@ -2112,6 +2541,11 @@ function appShell(activeKey, content) {
           <a href="#/library" class="sidebar-link ${activeKey==='library'?'active':''}">
             <svg><use href="#i-book"/></svg> Библиотека
           </a>
+          ${isAuthorOrAbove() ? `
+            <a href="#/knowledge" class="sidebar-link ${activeKey==='knowledge'?'active':''}">
+              <svg><use href="#i-file"/></svg> База знаний
+            </a>
+          ` : ''}
           <a href="#/projects/new" class="sidebar-link ${activeKey==='new'?'active':''}">
             <svg><use href="#i-plus"/></svg> Новый курс
           </a>
@@ -2206,11 +2640,16 @@ function projectCard(p) {
   const statusLabel = { draft: 'Черновик', exported: 'Экспортирован', generating: 'Генерируется', error: 'Ошибка' }[p.status] || p.status;
   const icons = ['🦺', '📋', '💼', '🏗️', '🎯', '🔧'];
   const icon = icons[parseInt(p.id.slice(-1), 36) % icons.length];
+  const doc = p.sourceDocId ? findDoc(p.sourceDocId) : null;
+  const outdated = p.sourceOutdated || (doc && doc.status === 'outdated');
   return `
     <a class="proj-card" href="#/projects/${p.id}/edit">
       <div class="proj-card-head">
         <div class="proj-icon">${icon}</div>
-        <span class="status-tag ${p.status}">${statusLabel}</span>
+        <div style="display:flex;gap:6px;align-items:center">
+          ${outdated ? '<span class="outdated-pin">⚠ устарел</span>' : ''}
+          <span class="status-tag ${p.status}">${statusLabel}</span>
+        </div>
       </div>
       <div class="proj-title">${escapeHtml(p.title)}</div>
       <div class="proj-file">
@@ -2230,6 +2669,369 @@ function filterProjects(q) {
     ? `<div class="empty-state" style="padding:60px 24px"><h2 style="font-size:18px">Ничего не найдено</h2><p>Попробуйте изменить запрос</p></div>`
     : `<div class="proj-grid"><a href="#/projects/new" class="proj-card new"><div class="plus">+</div><div class="label">Новый курс</div></a>${filtered.map(p => projectCard(p)).join('')}</div>`;
   document.getElementById('proj-list').innerHTML = html;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   KNOWLEDGE BASE — список документов
+═══════════════════════════════════════════════════════════ */
+registerRoute('/knowledge', () => {
+  const docs = state.documents;
+  const active = docs.filter(d => d.status === 'active').length;
+  const outdated = docs.filter(d => d.status === 'outdated').length;
+  const archived = docs.filter(d => d.status === 'archived').length;
+  const totalCourses = docs.reduce((a,d) => a + countCoursesUsingDoc(d.id), 0);
+  const totalSize = docs.reduce((a,d) => a + parseFloat(d.fileSize), 0).toFixed(1);
+
+  const allTags = Array.from(new Set(docs.flatMap(d => d.tags))).sort();
+
+  return appShell('knowledge', `
+    <div class="page-header">
+      <div>
+        <div class="page-title">База знаний</div>
+        <div class="page-sub">${docs.length} ${pluralize(docs.length,'документ','документа','документов')} · из них ${active} актуальны · ${outdated} требуют обновления курсов</div>
+      </div>
+      <button class="btn" onclick="openDocUploadModal()">
+        <svg width="16" height="16"><use href="#i-plus"/></svg>
+        Добавить документ
+      </button>
+    </div>
+
+    <div class="stat-tiles">
+      <div class="stat-tile">
+        <div class="lbl">Всего документов</div>
+        <div class="val">${docs.length}</div>
+        <div class="sub">${totalSize} МБ суммарно</div>
+      </div>
+      <div class="stat-tile">
+        <div class="lbl">Актуальные</div>
+        <div class="val"><em>${active}</em></div>
+      </div>
+      <div class="stat-tile">
+        <div class="lbl">Требуют обновления</div>
+        <div class="val" style="color:var(--amber)">${outdated}</div>
+        <div class="sub">курсов на их основе устарели</div>
+      </div>
+      <div class="stat-tile">
+        <div class="lbl">Использовано курсов</div>
+        <div class="val">${totalCourses}</div>
+        <div class="sub">создано из этих источников</div>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <div class="search-box" style="flex:1;max-width:380px">
+        <svg width="16" height="16"><use href="#i-search"/></svg>
+        <input type="text" placeholder="Поиск по названию или содержимому..." style="padding-left:38px;background:var(--white)" oninput="filterDocs(this.value)">
+      </div>
+      <select style="width:200px" onchange="filterDocsByTag(this.value)">
+        <option value="">Все теги</option>
+        ${allTags.map(t => `<option>${escapeHtml(t)}</option>`).join('')}
+      </select>
+      <select style="width:180px" onchange="filterDocsByStatus(this.value)">
+        <option value="">Все статусы</option>
+        <option value="active">Актуальные</option>
+        <option value="outdated">Требуют обновления</option>
+        <option value="archived">Архив</option>
+      </select>
+    </div>
+
+    <div id="docs-list">
+      <div class="docs-grid">
+        ${docs.map(d => docCard(d)).join('')}
+      </div>
+    </div>
+  `);
+});
+
+function docCard(d) {
+  const courseCount = countCoursesUsingDoc(d.id);
+  const author = state.team.find(t => t.id === d.uploadedById);
+  return `
+    <div class="doc-card ${d.status==='archived'?'archived':''} ${d.status==='outdated'?'outdated':''}" onclick="navigate('/knowledge/${d.id}')">
+      <div class="doc-card-head">
+        <div class="doc-type ${d.type}">${d.type.toUpperCase()}</div>
+        <div class="doc-card-info">
+          <div class="doc-card-title">${escapeHtml(d.title)}</div>
+          <div class="doc-card-filename">${escapeHtml(d.filename)}</div>
+        </div>
+      </div>
+      <div class="doc-card-desc">${escapeHtml(d.description)}</div>
+      <div class="doc-card-tags">
+        ${d.tags.slice(0,4).map(t => `<span class="doc-tag">${escapeHtml(t)}</span>`).join('')}
+        ${d.status === 'outdated' ? `<span class="doc-tag outdated">⚠ Обновлён</span>` : ''}
+        ${d.status === 'archived' ? `<span class="doc-tag archived">Архив</span>` : ''}
+      </div>
+      <div class="doc-card-meta">
+        <span>${d.pageCount} стр · <b>${d.fileSize}</b></span>
+        ${courseCount > 0
+          ? `<span class="doc-card-courses">📊 ${courseCount} ${pluralize(courseCount,'курс','курса','курсов')}</span>`
+          : `<span style="color:var(--muted2)">не использован</span>`
+        }
+      </div>
+    </div>
+  `;
+}
+
+function filterDocs(q) {
+  q = q.toLowerCase();
+  const filtered = state.documents.filter(d =>
+    d.title.toLowerCase().includes(q) ||
+    d.filename.toLowerCase().includes(q) ||
+    d.description.toLowerCase().includes(q) ||
+    d.contentPreview.toLowerCase().includes(q)
+  );
+  renderDocsList(filtered);
+}
+function filterDocsByTag(tag) {
+  const filtered = tag ? state.documents.filter(d => d.tags.includes(tag)) : state.documents;
+  renderDocsList(filtered);
+}
+function filterDocsByStatus(status) {
+  const filtered = status ? state.documents.filter(d => d.status === status) : state.documents;
+  renderDocsList(filtered);
+}
+function renderDocsList(docs) {
+  const el = document.getElementById('docs-list');
+  if (!docs.length) {
+    el.innerHTML = `<div class="empty-state" style="padding:60px 24px"><h2 style="font-size:18px">Ничего не найдено</h2><p>Попробуйте другой запрос</p></div>`;
+  } else {
+    el.innerHTML = `<div class="docs-grid">${docs.map(d => docCard(d)).join('')}</div>`;
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   KNOWLEDGE BASE — детальная страница документа
+═══════════════════════════════════════════════════════════ */
+registerRoute('/knowledge/:id', ({ id }) => {
+  const d = findDoc(id);
+  if (!d) return appShell('knowledge', `<div class="empty-state"><h2>Документ не найден</h2><a href="#/knowledge" class="btn ghost mt-16">← К базе знаний</a></div>`);
+  const author = state.team.find(t => t.id === d.uploadedById);
+  const courses = state.projects.filter(p => p.sourceDocId === d.id);
+  const statusBadge = {
+    active:   { lbl: 'Актуальный',   cls: 'active' },
+    outdated: { lbl: 'Есть новая версия', cls: 'invited' },
+    archived: { lbl: 'В архиве',     cls: 'inactive' }
+  }[d.status];
+
+  return appShell('knowledge', `
+    <div class="page-header">
+      <div>
+        <a href="#/knowledge" style="font-size:12px;color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:4px;margin-bottom:8px">
+          <svg width="12" height="12"><use href="#i-arrow-left"/></svg> К базе знаний
+        </a>
+        <div class="page-title" style="display:flex;align-items:center;gap:16px">
+          ${escapeHtml(d.title)}
+          <span class="status-pill ${statusBadge.cls}"><span class="dot"></span>${statusBadge.lbl}</span>
+        </div>
+        <div class="page-sub" style="font-family:'JetBrains Mono',monospace">${escapeHtml(d.filename)}</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn ghost" onclick="alert('Демо: замена файла — загрузить новую версию')">
+          <svg width="14" height="14"><use href="#i-refresh"/></svg> Заменить файл
+        </button>
+        ${d.status !== 'archived'
+          ? `<button class="btn ghost" onclick="archiveDoc('${d.id}')">Архивировать</button>`
+          : `<button class="btn ghost" onclick="restoreDoc('${d.id}')">Восстановить</button>`
+        }
+      </div>
+    </div>
+
+    <div class="doc-detail-grid">
+      <div class="doc-detail-main">
+        <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px">Описание</h3>
+        <p style="font-size:14px;color:var(--muted);line-height:1.6;margin-bottom:24px">${escapeHtml(d.description)}</p>
+
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px">
+          ${d.tags.map(t => `<span class="doc-tag">${escapeHtml(t)}</span>`).join('')}
+        </div>
+
+        <h3 style="font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--ink);margin-bottom:6px">Превью содержимого</h3>
+        <p style="font-size:12px;color:var(--muted2);margin-bottom:12px">Первые ~500 символов извлечённого текста</p>
+        <div class="content-preview">${escapeHtml(d.contentPreview)}</div>
+      </div>
+
+      <div class="doc-detail-side">
+        <div class="doc-side-card">
+          <h4>Метаданные</h4>
+          <div class="kv-list">
+            <div class="kv">
+              <span class="k">Тип</span>
+              <span class="v">${d.type.toUpperCase()}</span>
+            </div>
+            <div class="kv">
+              <span class="k">Размер</span>
+              <span class="v">${d.fileSize} · ${d.pageCount} ${pluralize(d.pageCount,'страница','страницы','страниц')}</span>
+            </div>
+            <div class="kv">
+              <span class="k">Язык</span>
+              <span class="v">${d.language === 'ru' ? 'Русский' : d.language === 'kz' ? 'Казахский' : 'English'}</span>
+            </div>
+            <div class="kv">
+              <span class="k">Добавил</span>
+              <span class="v">${author ? escapeHtml(author.name) : '—'}</span>
+            </div>
+            <div class="kv">
+              <span class="k">Загружен</span>
+              <span class="v">${formatDate(d.uploadedAt)}</span>
+            </div>
+            <div class="kv">
+              <span class="k">Последнее обновление</span>
+              <span class="v">${formatDate(d.updatedAt)}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="doc-side-card">
+          <h4>Используется в курсах · ${courses.length}</h4>
+          ${courses.length === 0
+            ? `<p style="font-size:12.5px;color:var(--muted2);line-height:1.5">Пока ни один курс не создан на основе этого документа. <a href="#/projects/new" style="color:var(--accent);font-weight:600">Создать первый →</a></p>`
+            : `<div class="used-list">
+                ${courses.map(c => `
+                  <div class="used-row" onclick="navigate('/projects/${c.id}/edit')">
+                    <span class="used-name">${escapeHtml(c.title)}</span>
+                    ${c.sourceOutdated ? '<span class="outdated-pin">устарел</span>' : ''}
+                  </div>
+                `).join('')}
+              </div>`
+          }
+        </div>
+
+        ${d.status === 'outdated' ? `
+          <div class="doc-side-card" style="background:var(--amber-lt);border-color:#F3D8B5">
+            <h4 style="color:var(--amber)">⚠ Документ обновлён</h4>
+            <p style="font-size:12.5px;color:var(--muted);line-height:1.55;margin-bottom:12px">Курсы, созданные на основе предыдущей версии, помечены как устаревшие. Можно перегенерировать каждый по отдельности или массово.</p>
+            <button class="btn sm" style="background:var(--amber);width:100%">Перегенерировать все курсы (${courses.length})</button>
+          </div>
+        ` : ''}
+      </div>
+    </div>
+  `);
+});
+
+function archiveDoc(id) {
+  if (!confirm('Архивировать документ? Существующие курсы продолжат работать.')) return;
+  const d = findDoc(id);
+  d.status = 'archived';
+  saveState();
+  render();
+}
+function restoreDoc(id) {
+  const d = findDoc(id);
+  d.status = 'active';
+  saveState();
+  render();
+}
+
+/* ═══════════════════════════════════════════════════════════
+   KNOWLEDGE BASE — модалка добавления документа
+═══════════════════════════════════════════════════════════ */
+let pendingDocTags = [];
+
+function openDocUploadModal() {
+  pendingDocTags = [];
+  const allTags = Array.from(new Set(state.documents.flatMap(d => d.tags))).sort();
+  openModal(`
+    <div class="modal-backdrop" onclick="if(event.target===this)closeModal()">
+      <div class="modal">
+        <div class="modal-head">
+          <h3>Добавить документ в базу знаний</h3>
+          <button class="modal-close" onclick="closeModal()"><svg width="20" height="20"><use href="#i-x"/></svg></button>
+        </div>
+        <div class="modal-body">
+          <div id="upload-step1">
+            <div class="dropzone" onclick="simulateKbUpload()" style="padding:36px 20px">
+              <span class="dropzone-icon">📄</span>
+              <h3 style="font-size:16px">Загрузите файл</h3>
+              <p>PDF, DOCX, PPTX, TXT · до 50 МБ</p>
+            </div>
+          </div>
+          <div id="upload-step2" class="hidden">
+            <div class="parse-progress" style="margin-bottom:18px;background:var(--accent-lt);border:1px solid var(--accent-md)">
+              <div class="doc-type pdf">PDF</div>
+              <div class="parse-info">
+                <div class="parse-file">new_regulation.pdf</div>
+                <div class="parse-status" style="color:var(--accent)">28 страниц · 2.4 МБ · распознано</div>
+              </div>
+              <svg width="20" height="20" style="color:var(--accent);flex-shrink:0"><use href="#i-check"/></svg>
+            </div>
+            <div class="fg">
+              <label>Название документа <span class="req">*</span></label>
+              <input type="text" id="new-doc-title" value="Новый регламент 2026" placeholder="Регламент по...">
+            </div>
+            <div class="fg">
+              <label>Описание <span style="color:var(--muted2);font-weight:400">(опционально)</span></label>
+              <textarea id="new-doc-desc" rows="2" placeholder="Кратко: о чём документ, для кого, ключевые темы"></textarea>
+            </div>
+            <div class="fg">
+              <label>Теги</label>
+              <div class="tag-chips" id="tag-chips">
+                <input class="tag-chip-input" id="new-doc-tag-input" placeholder="Добавить тег + Enter" onkeydown="if(event.key==='Enter'){event.preventDefault();addPendingTag(this.value);this.value='';}">
+              </div>
+              <div class="tag-suggested-row">
+                ${allTags.slice(0,10).map(t => `<button class="tag-suggested" onclick="addPendingTag('${escapeAttr(t)}')">+ ${escapeHtml(t)}</button>`).join('')}
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-foot">
+          <button class="btn ghost" onclick="closeModal()">Отмена</button>
+          <button class="btn" id="kb-add-btn" disabled onclick="addDocToKb()">Добавить в базу</button>
+        </div>
+      </div>
+    </div>
+  `);
+}
+
+function simulateKbUpload() {
+  document.getElementById('upload-step1').classList.add('hidden');
+  document.getElementById('upload-step2').classList.remove('hidden');
+  document.getElementById('kb-add-btn').disabled = false;
+}
+
+function addPendingTag(t) {
+  t = t.trim();
+  if (!t || pendingDocTags.includes(t)) return;
+  pendingDocTags.push(t);
+  rerenderTagChips();
+}
+function removePendingTag(t) {
+  pendingDocTags = pendingDocTags.filter(x => x !== t);
+  rerenderTagChips();
+}
+function rerenderTagChips() {
+  const el = document.getElementById('tag-chips');
+  if (!el) return;
+  el.innerHTML = `
+    ${pendingDocTags.map(t => `<span class="tag-chip">${escapeHtml(t)}<span class="x" onclick="removePendingTag('${escapeAttr(t)}')">×</span></span>`).join('')}
+    <input class="tag-chip-input" id="new-doc-tag-input" placeholder="${pendingDocTags.length ? '' : 'Добавить тег + Enter'}" onkeydown="if(event.key==='Enter'){event.preventDefault();addPendingTag(this.value);this.value='';}">
+  `;
+}
+
+function addDocToKb() {
+  const title = document.getElementById('new-doc-title').value.trim();
+  if (!title) { alert('Укажите название'); return; }
+  const desc = document.getElementById('new-doc-desc').value.trim();
+  const newDoc = {
+    id: 'doc_' + Date.now(),
+    title,
+    filename: 'new_regulation_' + Date.now() + '.pdf',
+    type: 'pdf',
+    description: desc || 'Без описания',
+    tags: [...pendingDocTags],
+    fileSize: '2.4 МБ',
+    pageCount: 28,
+    language: 'ru',
+    uploadedById: 't1',
+    uploadedAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    status: 'active',
+    contentPreview: 'Содержимое нового документа будет здесь...'
+  };
+  state.documents.unshift(newDoc);
+  state.audit.unshift({ id: 'a_' + Date.now(), user: state.user.name, action: 'добавил документ в базу знаний', target: title, at: new Date().toISOString() });
+  saveState();
+  closeModal();
+  navigate('/knowledge/' + newDoc.id);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -3027,37 +3829,36 @@ function wizardHeader(active) {
   `;
 }
 
-registerRoute('/projects/new', () => `
+let wizardSourceTab = 'kb';
+let wizardSelectedDocId = null;
+
+registerRoute('/projects/new', () => {
+  const kbDocs = state.documents.filter(d => d.status !== 'archived');
+  return `
   <div class="wizard-shell">
     ${wizardHeader(1)}
     <div class="wizard-body">
       <div class="wizard-card">
-        <h2>Загрузите документ</h2>
-        <p class="wcard-sub">Регламент, инструкция, политика или НПА — любой документ компании. AI разберёт его и предложит структуру курса.</p>
+        <h2>Источник для курса</h2>
+        <p class="wcard-sub">Выберите готовый документ из базы знаний или загрузите новый — он автоматически попадёт в КБ.</p>
 
-        <div class="dropzone" id="dropzone" onclick="simulateUpload()">
-          <span class="dropzone-icon">📄</span>
-          <h3>Перетащите файл сюда или выберите</h3>
-          <p>Максимум 50 МБ · русский или казахский язык</p>
-          <div class="formats">
-            <span>PDF</span><span>DOCX</span><span>PPTX</span><span>TXT</span>
-          </div>
+        <div class="ws-tabs" style="margin-bottom:24px">
+          <button class="ws-tab ${wizardSourceTab==='kb'?'active':''}" onclick="setWizardSourceTab('kb')">
+            <svg><use href="#i-file"/></svg> Из базы знаний
+            <span style="background:var(--surface);font-size:10px;padding:2px 6px;border-radius:10px;margin-left:4px;font-weight:600;color:var(--muted)">${kbDocs.length}</span>
+          </button>
+          <button class="ws-tab ${wizardSourceTab==='upload'?'active':''}" onclick="setWizardSourceTab('upload')">
+            <svg><use href="#i-upload"/></svg> Загрузить новый
+          </button>
         </div>
 
-        <div id="upload-progress" class="hidden mt-24">
-          <div class="parse-progress">
-            <div class="parse-icon">📄</div>
-            <div class="parse-info">
-              <div class="parse-file" id="up-filename">reglament_OT_2026.pdf</div>
-              <div class="parse-status" id="up-status">Парсинг документа...</div>
-              <div class="parse-bar"><div class="parse-bar-fill" id="up-bar"></div></div>
-            </div>
-          </div>
+        <div id="wizard-source-area">
+          ${renderWizardSourceArea()}
         </div>
 
         <div class="wizard-footer">
           <a href="#/projects" class="btn ghost">← Назад</a>
-          <button class="btn" id="up-next" disabled onclick="navigate('/projects/new/params')">
+          <button class="btn" id="up-next" ${(wizardSourceTab==='kb' && wizardSelectedDocId) ? '' : 'disabled'} onclick="proceedFromSource()">
             Дальше: параметры
             <svg width="16" height="16"><use href="#i-arrow-right"/></svg>
           </button>
@@ -3065,7 +3866,97 @@ registerRoute('/projects/new', () => `
       </div>
     </div>
   </div>
-`);
+`;
+});
+
+function setWizardSourceTab(t) {
+  wizardSourceTab = t;
+  wizardSelectedDocId = null;
+  document.getElementById('wizard-source-area').innerHTML = renderWizardSourceArea();
+  document.querySelectorAll('.wizard-card .ws-tab').forEach(el => el.classList.remove('active'));
+  document.querySelector(`.wizard-card [onclick="setWizardSourceTab('${t}')"]`).classList.add('active');
+  const nextBtn = document.getElementById('up-next');
+  if (nextBtn) nextBtn.disabled = (t === 'kb' && !wizardSelectedDocId) || (t === 'upload');
+}
+
+function renderWizardSourceArea() {
+  if (wizardSourceTab === 'kb') {
+    const docs = state.documents.filter(d => d.status !== 'archived');
+    return `
+      <div class="search-box" style="max-width:none;margin-bottom:14px">
+        <svg width="16" height="16"><use href="#i-search"/></svg>
+        <input type="text" placeholder="Поиск документа..." style="padding-left:38px;background:var(--white)" oninput="filterWizardKbDocs(this.value)">
+      </div>
+      <div id="wizard-kb-list" style="max-height:380px;overflow-y:auto">
+        ${docs.map(d => kbDocRow(d)).join('')}
+      </div>
+    `;
+  }
+  return `
+    <div class="dropzone" id="dropzone" onclick="simulateUpload()">
+      <span class="dropzone-icon">📄</span>
+      <h3>Перетащите файл сюда или выберите</h3>
+      <p>Максимум 50 МБ · русский или казахский язык. Документ автоматически попадёт в базу знаний.</p>
+      <div class="formats">
+        <span>PDF</span><span>DOCX</span><span>PPTX</span><span>TXT</span>
+      </div>
+    </div>
+    <div id="upload-progress" class="hidden mt-24">
+      <div class="parse-progress">
+        <div class="parse-icon">📄</div>
+        <div class="parse-info">
+          <div class="parse-file" id="up-filename">reglament_OT_2026.pdf</div>
+          <div class="parse-status" id="up-status">Парсинг документа...</div>
+          <div class="parse-bar"><div class="parse-bar-fill" id="up-bar"></div></div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function kbDocRow(d) {
+  const courses = countCoursesUsingDoc(d.id);
+  return `
+    <div class="kb-doc-row ${wizardSelectedDocId===d.id?'selected':''}" onclick="selectWizardDoc('${d.id}')">
+      <div class="doc-type ${d.type}">${d.type.toUpperCase()}</div>
+      <div class="info">
+        <div class="name">${escapeHtml(d.title)}</div>
+        <div class="meta">${d.pageCount} стр · ${d.fileSize} · ${d.tags.slice(0,3).join(', ')}${courses ? ` · использован в ${courses} ${pluralize(courses,'курсе','курсах','курсах')}` : ''}</div>
+      </div>
+      <svg class="check" width="20" height="20"><use href="#i-check"/></svg>
+    </div>
+  `;
+}
+
+function selectWizardDoc(docId) {
+  wizardSelectedDocId = docId;
+  document.getElementById('wizard-kb-list').innerHTML = state.documents.filter(d => d.status !== 'archived').map(d => kbDocRow(d)).join('');
+  document.getElementById('up-next').disabled = false;
+}
+
+function filterWizardKbDocs(q) {
+  q = q.toLowerCase();
+  const list = state.documents.filter(d => d.status !== 'archived' && (
+    d.title.toLowerCase().includes(q) ||
+    d.tags.join(' ').toLowerCase().includes(q)
+  ));
+  document.getElementById('wizard-kb-list').innerHTML = list.map(d => kbDocRow(d)).join('');
+}
+
+function proceedFromSource() {
+  if (wizardSourceTab === 'kb' && wizardSelectedDocId) {
+    const d = findDoc(wizardSelectedDocId);
+    state.wizardDraft = {
+      sourceDocId: d.id,
+      filename: d.filename,
+      fileSize: d.fileSize,
+      pageCount: d.pageCount,
+      sourceTitle: d.title
+    };
+    saveState();
+  }
+  navigate('/projects/new/params');
+}
 
 function simulateUpload() {
   document.getElementById('upload-progress').classList.remove('hidden');
@@ -3073,17 +3964,18 @@ function simulateUpload() {
   const status = document.getElementById('up-status');
   const nextBtn = document.getElementById('up-next');
   state.wizardDraft = {
+    sourceDocId: null,
     filename: 'reglament_OT_2026.pdf',
     fileSize: '2.4 МБ',
-    pageCount: 28
+    pageCount: 28,
+    sourceTitle: 'Новый документ из загрузки'
   };
-  let p = 0;
   const stages = [
     [10, 'Загрузка файла...'],
     [35, 'Извлечение текста из PDF...'],
     [65, 'Определение языка документа...'],
     [85, 'Анализ структуры...'],
-    [100, 'Готово — 28 страниц распознано']
+    [100, 'Готово — 28 страниц распознано · документ добавлен в КБ']
   ];
   let i = 0;
   const tick = () => {
@@ -3242,11 +4134,36 @@ function applyPreset(key, evt) {
 }
 
 function startGeneration() {
+  const draft = state.wizardDraft || {};
+  let sourceDocId = draft.sourceDocId;
+  // если документ свежеzагружен — создаём запись в КБ
+  if (!sourceDocId && draft.filename) {
+    const newDoc = {
+      id: 'doc_' + Date.now(),
+      title: draft.sourceTitle || 'Загруженный документ',
+      filename: draft.filename,
+      type: 'pdf',
+      description: 'Документ загружен через мастер создания курса',
+      tags: ['Авто-импорт'],
+      fileSize: draft.fileSize || '—',
+      pageCount: draft.pageCount || 0,
+      language: 'ru',
+      uploadedById: 't1',
+      uploadedAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      status: 'active',
+      contentPreview: 'Содержимое будет извлечено после парсинга...'
+    };
+    state.documents.unshift(newDoc);
+    sourceDocId = newDoc.id;
+  }
   const newId = 'p' + Date.now();
+  const sourceDoc = sourceDocId ? findDoc(sourceDocId) : null;
   const proj = {
     id: newId,
-    title: 'Промышленная безопасность на производстве',
-    sourceFilename: state.wizardDraft?.filename || 'reglament_OT_2026.pdf',
+    title: sourceDoc ? sourceDoc.title : 'Новый курс',
+    sourceDocId,
+    sourceFilename: draft.filename || sourceDoc?.filename || 'document.pdf',
     status: 'generating',
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
@@ -3386,7 +4303,10 @@ function renderEditor(p) {
           <a href="#/projects" class="editor-back" title="К списку курсов">
             <svg width="18" height="18"><use href="#i-arrow-left"/></svg>
           </a>
-          <input type="text" class="editor-title-input" id="ed-title" value="${escapeAttr(c.title)}" oninput="onTitleChange('${p.id}', this.value)">
+          <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+            <input type="text" class="editor-title-input" id="ed-title" value="${escapeAttr(c.title)}" oninput="onTitleChange('${p.id}', this.value)" style="margin:0;padding:4px 10px">
+            ${renderEditorSourceChip(p)}
+          </div>
           <span class="save-status"><span class="dot"></span> Сохранено только что</span>
         </div>
         <div class="editor-top-right">
@@ -3424,6 +4344,21 @@ function renderEditor(p) {
           ${editorState.view === 'test' ? renderTestEditor(p) : renderSlideEditor(p)}
         </section>
       </div>
+    </div>
+  `;
+}
+
+function renderEditorSourceChip(p) {
+  if (!p.sourceDocId) return '';
+  const doc = findDoc(p.sourceDocId);
+  if (!doc) return '';
+  const outdated = p.sourceOutdated || doc.status === 'outdated';
+  return `
+    <div class="src-chip ${outdated ? 'outdated' : ''}" style="margin-left:10px;align-self:flex-start">
+      <svg><use href="#i-file"/></svg>
+      ${outdated ? '⚠ Источник обновлён · ' : 'Источник: '}
+      <a href="#/knowledge/${doc.id}" onclick="event.stopPropagation()">${escapeHtml(doc.filename)}</a>
+      ${outdated ? `<button class="btn sm" style="background:var(--amber);padding:2px 10px;margin-left:8px;font-size:11px" onclick="alert('Демо: перегенерация курса по новой версии документа')">Перегенерировать</button>` : ''}
     </div>
   `;
 }
