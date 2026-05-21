@@ -1507,6 +1507,48 @@ input[type=range]::-webkit-slider-thumb {
   margin-left: 6px;
 }
 
+/* ═══════════ PRESETS (wizard) ═══════════ */
+.preset-row {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  margin-top: 4px;
+}
+.preset-btn {
+  background: var(--white);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 9px 14px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  display: inline-flex; align-items: center; gap: 6px;
+  color: var(--text);
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.preset-btn:hover {
+  border-color: var(--accent-md);
+  background: var(--accent-lt);
+  color: var(--accent-dk);
+}
+.preset-btn.selected {
+  border-color: var(--accent);
+  background: var(--accent-lt);
+  color: var(--accent);
+  font-weight: 600;
+}
+.preset-btn .ic { font-size: 14px; }
+
+.prompt-hint {
+  display: flex; gap: 10px;
+  background: var(--accent-lt);
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 12px; color: var(--accent-dk);
+  margin-top: 8px;
+  line-height: 1.55;
+}
+.prompt-hint svg { flex-shrink: 0; margin-top: 1px; }
+
 /* utility */
 .hidden { display: none !important; }
 .mt-16 { margin-top: 16px; }
@@ -3079,6 +3121,16 @@ registerRoute('/projects/new/params', () => `
         </div>
 
         <div class="fg">
+          <label>Пресет — заполнит все параметры одной кнопкой <span style="color:var(--muted2);font-weight:400">(можно изменить ниже)</span></label>
+          <div class="preset-row">
+            <button class="preset-btn" onclick="applyPreset('compliance', event)"><span class="ic">⚖️</span>Compliance refresher</button>
+            <button class="preset-btn" onclick="applyPreset('onboarding', event)"><span class="ic">🚀</span>Onboarding 1 час</button>
+            <button class="preset-btn" onclick="applyPreset('deep', event)"><span class="ic">🎓</span>Глубокий курс 4 часа</button>
+            <button class="preset-btn" onclick="applyPreset('safety', event)"><span class="ic">🦺</span>Охрана труда</button>
+          </div>
+        </div>
+
+        <div class="fg">
           <label>Целевая аудитория курса <span class="req">*</span></label>
           <input type="text" id="pm-aud" value="Сотрудники производственных участков" placeholder="Например: Менеджеры по работе с клиентами">
         </div>
@@ -3115,6 +3167,17 @@ registerRoute('/projects/new/params', () => `
           </div>
         </div>
 
+        <div class="fg">
+          <label>
+            Дополнительные указания AI <span style="color:var(--muted2);font-weight:400">(необязательно)</span>
+          </label>
+          <textarea id="pm-prompt" rows="3" placeholder="Например: «упор на электробезопасность, добавь кейс-стади после каждого модуля, в тесте задавай практические сценарии»"></textarea>
+          <div class="prompt-hint">
+            <svg width="16" height="16"><use href="#i-info"/></svg>
+            <span>AI получит этот текст вместе с параметрами выше. Можно указать акценты, формат подачи, типы вопросов, стиль — что угодно, что важно для аудитории.</span>
+          </div>
+        </div>
+
         <div class="wizard-footer">
           <a href="#/projects/new" class="btn ghost">← Назад</a>
           <button class="btn" onclick="startGeneration()">
@@ -3133,6 +3196,51 @@ function selDiff(v) {
   });
 }
 
+const PRESETS = {
+  compliance: {
+    aud: 'Все сотрудники компании',
+    diff: 'medium',
+    mod: 3,
+    q: 12,
+    prompt: 'Сжатый ежегодный refresher по комплаенсу. В тесте — практические сценарии: реальные ситуации, в которых сотрудник должен принять решение. Каждый модуль — не более 5 слайдов, без воды.'
+  },
+  onboarding: {
+    aud: 'Новые сотрудники в первый месяц работы',
+    diff: 'basic',
+    mod: 5,
+    q: 10,
+    prompt: 'Onboarding-курс на ~1 час. Простой язык, дружелюбный тон. Каждый модуль — короткий (3-5 слайдов), с примерами из жизни компании. Тест проверяет понимание базовых правил, без подвохов.'
+  },
+  deep: {
+    aud: 'Эксперты в своей области, нужна глубокая проработка',
+    diff: 'advanced',
+    mod: 5,
+    q: 20,
+    prompt: 'Глубокий курс на 3-4 часа. Подробные объяснения с цитатами из нормативных актов и ссылками на пункты регламента. В тесте — разбор edge cases и неоднозначных ситуаций.'
+  },
+  safety: {
+    aud: 'Производственные рабочие, операторы, специалисты по ОТ',
+    diff: 'basic',
+    mod: 4,
+    q: 15,
+    prompt: 'Курс по охране труда. Простой язык, упор на практические действия. Каждый модуль заканчивается чек-листом действий «что делать если...». В тесте — сценарии из реальных инцидентов.'
+  }
+};
+
+function applyPreset(key, evt) {
+  const p = PRESETS[key];
+  if (!p) return;
+  document.getElementById('pm-aud').value = p.aud;
+  selDiff(p.diff);
+  document.getElementById('pm-mod').value = p.mod;
+  document.getElementById('pm-mod-val').textContent = p.mod;
+  document.getElementById('pm-q').value = p.q;
+  document.getElementById('pm-q-val').textContent = p.q;
+  document.getElementById('pm-prompt').value = p.prompt;
+  document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('selected'));
+  if (evt && evt.currentTarget) evt.currentTarget.classList.add('selected');
+}
+
 function startGeneration() {
   const newId = 'p' + Date.now();
   const proj = {
@@ -3146,7 +3254,8 @@ function startGeneration() {
       audience: document.getElementById('pm-aud').value,
       difficulty: document.querySelector('#pm-diff .selected')?.dataset.val || 'basic',
       modulesCount: parseInt(document.getElementById('pm-mod').value),
-      testQuestionsCount: parseInt(document.getElementById('pm-q').value)
+      testQuestionsCount: parseInt(document.getElementById('pm-q').value),
+      customPrompt: document.getElementById('pm-prompt')?.value.trim() || null
     },
     content: null
   };
