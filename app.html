@@ -2741,10 +2741,10 @@ function renderWsOrg() {
         </div>
       </div>
 
-      <div style="background:var(--red-lt);border:1px solid #F3C5BF;border-radius:12px;padding:24px;margin-top:32px">
-        <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--red);margin-bottom:6px">Удалить workspace</h4>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Все курсы, участники и данные будут удалены безвозвратно.</p>
-        <button class="btn danger" onclick="alert('Демо: удаление workspace')">Удалить workspace</button>
+      <div style="background:var(--amber-lt);border:1px solid #F3D8B5;border-radius:12px;padding:24px;margin-top:32px">
+        <h4 style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:var(--amber);margin-bottom:6px">Архивировать workspace</h4>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px">Workspace станет доступен только для чтения. Создание новых курсов остановится, биллинг приостановится. Все существующие курсы и SCORM-экспорты сохраняются — можно восстановить в любой момент.</p>
+        <button class="btn" style="background:var(--amber)" onclick="alert('Демо: архивация workspace · восстановить можно через раздел поддержки')">Архивировать workspace</button>
       </div>
     </div>
   `;
